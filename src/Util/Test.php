@@ -401,7 +401,7 @@ class PHPUnit_Util_Test
         }
 
         if ($data !== null) {
-            if (is_object($data)) {
+            if (is_object($data) && false == $data instanceof \Generator) {
                 $data = iterator_to_array($data);
             }
 
@@ -414,10 +414,10 @@ class PHPUnit_Util_Test
                         )
                     );
                 }
+
+	            yield $key => $value;
             }
         }
-
-        return $data;
     }
 
     /**
@@ -467,8 +467,11 @@ class PHPUnit_Util_Test
             } else {
                 $data = $dataProviderMethod->invoke($object, $methodName);
             }
-
-            return $data;
+	     
+	        // Forward data as a generator
+	        foreach ( $data as $key => $value ) {
+		        yield $key => $value;
+	        }
         }
     }
 

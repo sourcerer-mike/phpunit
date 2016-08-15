@@ -284,11 +284,11 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
     /**
      * Constructs a test case with the given name.
      *
-     * @param string $name
-     * @param array  $data
-     * @param string $dataName
+     * @param string          $name
+     * @param array|Generator $data
+     * @param string          $dataName
      */
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function __construct($name = null, $data = [], $dataName = '')
     {
         if ($name !== null) {
             $this->setName($name);
